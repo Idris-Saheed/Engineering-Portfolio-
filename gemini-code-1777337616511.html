@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Idris Ahamed Saheed — Mechanical Engineer</title>
+    <meta name="description" content="BEng (Hons) Mechanical Engineering — First Class Honours, Kingston University. Portfolio showcasing Control Systems, Mechatronics, and Precision Mechanics.">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: {
+                            50:  '#ecfdf5',
+                            100: '#d1fae5',
+                            200: '#a7f3d0',
+                            300: '#6ee7b7',
+                            400: '#34d399',
+                            500: '#10b981', 
+                            600: '#059669',
+                            700: '#047857',
+                            800: '#065f46',
+                            900: '#064e3b',
+                        },
+                        surface: {
+                            950: '#09090b',  
+                            900: '#18181b',  
+                            850: '#1f1f23',  
+                            800: '#27272a',  
+                            700: '#3f3f46',  
+                            600: '#52525b',  
+                        }
+                    },
+                    fontFamily: {
+                        'display':  ['"Instrument Serif"', 'Georgia', 'serif'],
+                        'heading':  ['"Outfit"', 'system-ui', 'sans-serif'],
+                        'body':     ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+                        'mono':     ['"JetBrains Mono"', 'monospace'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: 'Source Sans 3', system-ui, sans-serif;
+            background-color: #09090b;
+            color: #e4e4e7;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .tab-btn { position: relative; transition: color 0.25s ease; }
+        .tab-btn::after {
+            content: ''; position: absolute; bottom: -2px; left: 0;
+            width: 100%; height: 2px; background: #10b981;
+            transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+        }
+        .tab-btn.active { color: #10b981; }
+        .tab-btn.active::after { transform: scaleX(1); }
+        .tab-panel { display: none; opacity: 0; transform: translateY(8px); }
+        .tab-panel.active { display: block; animation: fadeIn 0.35s ease forwards; }
+        @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+        .img-placeholder {
+            background: #1f1f23; border: 1px dashed #3f3f46;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden; transition: border-color 0.25s ease;
+        }
+        .img-placeholder:hover { border-color: #10b981; }
+        .spec-badge { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; letter-spacing: 0.02em; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        @keyframes pulseRing {
+            0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+            70%  { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
+            100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+        }
+        .cta-pulse { animation: pulseRing 2.5s ease-out infinite; }
+        .tab-scroll::-webkit-scrollbar { display: none; }
+        .tab-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+
+<body class="relative min-h-screen">
+
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-surface-950/80 border-b border-surface-700/50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <a href="#top" class="font-display text-2xl text-white tracking-tight">
+                    Idris<span class="text-accent-500">.</span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8 font-heading text-sm font-medium text-zinc-400">
+                    <a href="#bio" class="hover:text-accent-400 transition-colors">Bio</a>
+                    <a href="#projects" class="hover:text-accent-400 transition-colors">Projects</a>
+                    <a href="#contact" class="hover:text-accent-400 transition-colors">Contact</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <a href="Idris_saheed_CV.pdf" download="Idris_Saheed_CV" class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent-600 hover:bg-accent-500 text-white font-heading text-sm font-medium transition-colors cta-pulse">
+                        <i data-lucide="download" class="w-4 h-4"></i>
+                        Download CV
+                    </a>
+                    <button id="mobile-menu-btn" class="md:hidden p-2 text-zinc-400 hover:text-white transition-colors" aria-label="Menu">
+                        <i data-lucide="menu" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="hidden md:hidden pb-4 border-t border-surface-700/50 mt-2 pt-4">
+                <nav class="flex flex-col gap-3 font-heading text-sm font-medium text-zinc-400">
+                    <a href="#bio" class="hover:text-accent-400 transition-colors">Bio</a>
+                    <a href="#projects" class="hover:text-accent-400 transition-colors">Projects</a>
+                    <a href="#contact" class="hover:text-accent-400 transition-colors">Contact</a>
+                    <a href="Idris_saheed_CV.pdf" download="Idris_Saheed_CV" class="inline-flex items-center gap-2 mt-2 px-4 py-2 rounded-lg bg-accent-600 text-white font-heading text-sm font-medium w-fit">
+                        <i data-lucide="download" class="w-4 h-4"></i> Download CV
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <section id="bio" class="pt-20 pb-16 sm:pt-28 sm:pb-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+                    <div class="lg:col-span-3 reveal">
+                        <p class="font-mono text-accent-500 text-sm mb-4 tracking-wide">BEng (Hons) Mechanical Engineering — First Class Honours</p>
+                        <h1 class="font-display text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.1] mb-6">
+                            Idris Ahamed<br>Saheed
+                        </h1>
+                        <p class="font-body text-lg sm:text-xl text-zinc-300 leading-relaxed max-w-2xl mb-8">
+                            First Class Honours graduate from <span class="text-white font-medium">Kingston University</span> (2026). International student with immediate <span class="text-accent-400 font-medium">Right to Work</span> via the Graduate Route. Specialised in <span class="text-white font-medium">Control Systems</span>, <span class="text-white font-medium">Mechatronics</span>, and <span class="text-white font-medium">Precision Mechanics</span>.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-10">
+                            <span class="spec-badge px-3 py-1.5 rounded-full bg-surface-800 border border-surface-700 text-zinc-300">SolidWorks / NX / Fusion 360</span>
+                            <span class="spec-badge px-3 py-1.5 rounded-full bg-surface-800 border border-surface-700 text-zinc-300">Ansys (FEA)</span>
+                            <span class="spec-badge px-3 py-1.5 rounded-full bg-surface-800 border border-surface-700 text-zinc-300">Python / MATLAB</span>
+                            <span class="spec-badge px-3 py-1.5 rounded-full bg-surface-800 border border-surface-700 text-zinc-300">Embedded Linux / DSP</span>
+                            <span class="spec-badge px-3 py-1.5 rounded-full bg-surface-800 border border-surface-700 text-zinc-300">PCB Soldering & Diagnostics</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-5 text-sm text-zinc-400 font-heading">
+                            <a href="mailto:idris21saheed@gmail.com" class="flex items-center gap-2 hover:text-accent-400 transition-colors"><i data-lucide="mail" class="w-4 h-4"></i> idris21saheed@gmail.com</a>
+                            <a href="tel:+4407481968146" class="flex items-center gap-2 hover:text-accent-400 transition-colors"><i data-lucide="phone" class="w-4 h-4"></i> 07481 968 146</a>
+                            <a href="https://www.linkedin.com/in/idris-saheed/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-accent-400 transition-colors"><i data-lucide="linkedin" class="w-4 h-4"></i> LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 reveal" style="animation-delay: 0.15s;">
+                        <div class="relative">
+                            <div class="img-placeholder aspect-[4/5] rounded-2xl w-full max-w-sm mx-auto lg:mx-0">
+                                <img id="profile-photo" src="" alt="Profile photograph" class="w-full h-full object-cover rounded-2xl hidden">
+                                <div id="profile-photo-placeholder" class="flex flex-col items-center gap-3 text-surface-600">
+                                    <i data-lucide="user" class="w-12 h-12"></i>
+                                    <span class="font-mono text-xs">PROFILE PHOTO</span>
+                                </div>
+                            </div>
+                            <div class="absolute -bottom-3 -right-3 w-24 h-24 border-b-2 border-r-2 border-accent-500/30 rounded-br-2xl pointer-events-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-16 sm:py-24">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="reveal mb-12">
+                    <p class="font-mono text-accent-500 text-sm mb-3 tracking-wide">Selected Work & Experience</p>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-semibold text-white">Engineering Portfolio</h2>
+                </div>
+                <div class="reveal mb-10 border-b border-surface-700/50">
+                    <div class="flex gap-1 overflow-x-auto tab-scroll -mb-px">
+                        <button class="tab-btn active font-heading text-sm font-medium text-accent-500 px-4 py-3 whitespace-nowrap" data-tab="anc">
+                            <span class="flex items-center gap-2"><i data-lucide="audio-lines" class="w-4 h-4"></i> Active Noise Cancellation</span>
+                        </button>
+                        <button class="tab-btn font-heading text-sm font-medium text-zinc-500 px-4 py-3 whitespace-nowrap hover:text-zinc-300" data-tab="jlr">
+                            <span class="flex items-center gap-2"><i data-lucide="car" class="w-4 h-4"></i> JLR Upright Design</span>
+                        </button>
+                        <button class="tab-btn font-heading text-sm font-medium text-zinc-500 px-4 py-3 whitespace-nowrap hover:text-zinc-300" data-tab="exp">
+                            <span class="flex items-center gap-2"><i data-lucide="cpu" class="w-4 h-4"></i> Hardware & Experience</span>
+                        </button>
+                        <button class="tab-btn font-heading text-sm font-medium text-zinc-500 px-4 py-3 whitespace-nowrap hover:text-zinc-300" data-tab="watch">
+                            <span class="flex items-center gap-2"><i data-lucide="watch" class="w-4 h-4"></i> Watch Restoration</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tab-panel active" id="panel-anc">
+                    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                        <div>
+                            <p class="font-mono text-accent-500 text-xs tracking-wider mb-3">FINAL YEAR PROJECT</p>
+                            <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-white mb-6">Real-Time Active Noise Cancellation on Embedded Linux</h3>
+                            <div class="mb-6">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">The Problem</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Standard Windows/MATLAB-based signal processing introduced 50–100 ms of latency, making real-time active noise cancellation physically impossible — a delay of that magnitude would require a 34-metre waveguide to compensate.</p>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">The Solution</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Pivoted to a real-time Embedded Linux architecture (Raspberry Pi) running Python-based FxLMS adaptive filtering algorithms. Bypassed OS-level audio stacks by interfacing directly via Linux I2S, achieving deterministic low-latency processing.</p>
+                            </div>
+                            <div class="mb-8">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">Technical Achievement</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Reduced end-to-end system latency to <span class="text-accent-400 font-semibold font-mono">4.477 ms</span>, achieving <span class="text-accent-400 font-semibold font-mono">−10.1 dB</span> attenuation at the target frequency.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">Python</span>
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">DSP</span>
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">FxLMS</span>
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">Linux I2S</span>
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">Raspberry Pi</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="img-placeholder aspect-video rounded-xl">
+                                <img id="anc-img-1" src="" alt="ANC Setup" class="w-full h-full object-cover rounded-xl hidden">
+                                <div class="anc-img-1-placeholder flex flex-col items-center gap-2 text-surface-600">
+                                    <i data-lucide="image" class="w-8 h-8"></i><span class="font-mono text-xs">ANC HARDWARE IMAGE</span>
+                                </div>
+                            </div>
+                            <div class="img-placeholder aspect-video rounded-xl">
+                                <img id="anc-img-2" src="" alt="DSP Graph" class="w-full h-full object-cover rounded-xl hidden">
+                                <div class="anc-img-2-placeholder flex flex-col items-center gap-2 text-surface-600">
+                                    <i data-lucide="image" class="w-8 h-8"></i><span class="font-mono text-xs">ATTENUATION GRAPH</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="panel-jlr">
+                    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                        <div>
+                            <p class="font-mono text-accent-500 text-xs tracking-wider mb-3">COURSEWORK — JLR KINGSTON INDUSTRY PARTNER</p>
+                            <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-white mb-6">Front Upright (Hub Carrier) Design</h3>
+                            <div class="mb-6">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">Project Brief</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Design and optimisation of a front upright (hub carrier) for a high-performance automotive application, delivered in partnership with Jaguar Land Rover.</p>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">Analysis</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Conducted Finite Element Analysis (FEA) for stress distribution verification and mass optimisation. Material selection focused on <span class="text-white font-medium font-mono">A356.0-F Cast Aluminium</span>, balancing strength-to-weight ratio with manufacturing feasibility.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">SolidWorks</span>
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">Ansys FEA</span>
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">A356.0-F</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="img-placeholder aspect-video rounded-xl">
+                                <img id="jlr-img-1" src="" alt="JLR CAD" class="w-full h-full object-cover rounded-xl hidden">
+                                <div class="jlr-img-1-placeholder flex flex-col items-center gap-2 text-surface-600">
+                                    <i data-lucide="image" class="w-8 h-8"></i><span class="font-mono text-xs">SOLIDWORKS RENDER</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="panel-exp">
+                    <div class="grid lg:grid-cols-1 gap-10 lg:gap-16">
+                        <div>
+                            <p class="font-mono text-accent-500 text-xs tracking-wider mb-3">PROFESSIONAL EXPERIENCE & COMPETITION</p>
+                            <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-white mb-8">Hardware Integration & Mechanical Diagnostics</h3>
+                            
+                            <div class="mb-8 border-l-2 border-surface-700 pl-6">
+                                <h4 class="font-heading text-lg font-semibold text-white mb-1">Engineering Intern — MAS Holdings (Twinery Division)</h4>
+                                <p class="font-mono text-xs text-accent-500 tracking-wider mb-3">JUL - AUG 2023 | SRI LANKA</p>
+                                <ul class="list-disc list-inside font-body text-zinc-300 leading-relaxed space-y-2">
+                                    <li>Researched and prototyped solutions for manufacturing efficiency using SolidWorks for 3D modeling.</li>
+                                    <li>Disassembled and reassembled industrial sewing machinery to diagnose and rectify mechanical failures.</li>
+                                    <li>Soldered and tested printed circuit boards (PCBs) for automated production line systems.</li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-8 border-l-2 border-surface-700 pl-6">
+                                <h4 class="font-heading text-lg font-semibold text-white mb-1">Formula Student & IMechE Competitor</h4>
+                                <p class="font-mono text-xs text-accent-500 tracking-wider mb-3">2023 - PRESENT | KINGSTON UNIVERSITY</p>
+                                <ul class="list-disc list-inside font-body text-zinc-300 leading-relaxed space-y-2">
+                                    <li>Collaborated with 20+ team members on end-to-end vehicle development (Design → Manufacturing → Physical Testing).</li>
+                                    <li><strong>IMechE Design Challenge (2024):</strong> Reached Internal University Finals. Developed a functional prototype for the "Repeatable Vehicle" constraint alongside a 6-engineer team.</li>
+                                </ul>
+                            </div>
+
+                            <div class="mb-4 border-l-2 border-surface-700 pl-6">
+                                <h4 class="font-heading text-lg font-semibold text-white mb-1">Bicycle Technician — Fulham Cycles</h4>
+                                <p class="font-mono text-xs text-accent-500 tracking-wider mb-3">JUN - SEP 2024 | LONDON</p>
+                                <ul class="list-disc list-inside font-body text-zinc-300 leading-relaxed space-y-2">
+                                    <li>Repaired complex mechanical drivetrains and hydraulic braking systems under strict commercial time constraints.</li>
+                                    <li>Diagnosed technical faults and implemented rapid solutions, demonstrating high-level precision and mechanical aptitude.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-panel" id="panel-watch">
+                    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+                        <div>
+                            <p class="font-mono text-accent-500 text-xs tracking-wider mb-3">TECHNICAL HOBBY</p>
+                            <h3 class="font-heading text-2xl sm:text-3xl font-semibold text-white mb-6">Mechanical Watch Restoration</h3>
+                            <div class="mb-6">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">The Craft</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Sourcing and restoring job-lot mechanical watches from eBay — taking non-functional movements from unknown condition through to full working order.</p>
+                            </div>
+                            <div class="mb-6">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">Skills</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Fault diagnosis of mechanical movements, ultrasonic cleaning, lubrication, and full reassembly of micro-mechanical components without service manuals.</p>
+                            </div>
+                            <div class="mb-8">
+                                <h4 class="font-heading text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-2">Engineering Value</h4>
+                                <p class="font-body text-zinc-300 leading-relaxed">Demonstrates extreme manual dexterity, patience under precision constraints, and <span class="text-accent-400 font-medium italic">mechanical empathy</span> — the ability to intuit the condition of a mechanism through tactile feedback.</p>
+                            </div>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">Fault Diagnosis</span>
+                                <span class="spec-badge px-2.5 py-1 rounded bg-accent-900/40 border border-accent-700/30 text-accent-300">Micro-Assembly</span>
+                            </div>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="img-placeholder aspect-video rounded-xl">
+                                <img id="watch-img-1" src="" alt="Watch Parts" class="w-full h-full object-cover rounded-xl hidden">
+                                <div class="watch-img-1-placeholder flex flex-col items-center gap-2 text-surface-600">
+                                    <i data-lucide="image" class="w-8 h-8"></i><span class="font-mono text-xs">WATCH TEARDOWN IMAGE</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 sm:py-24 border-t border-surface-700/50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="reveal">
+                        <p class="font-mono text-accent-500 text-sm mb-3 tracking-wide">Get in Touch</p>
+                        <h2 class="font-heading text-3xl sm:text-4xl font-semibold text-white mb-4">Let's build something.</h2>
+                        <p class="font-body text-zinc-400 leading-relaxed mb-8 max-w-md">Open to graduate mechanical engineering roles across the UK. Immediate Right to Work via the Graduate Route — no sponsorship required.</p>
+                        <a href="Idris_saheed_CV.pdf" download="Idris_Saheed_CV" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-accent-600 hover:bg-accent-500 text-white font-heading text-sm font-semibold transition-colors cta-pulse">
+                            <i data-lucide="download" class="w-5 h-5"></i> Download Engineering CV
+                        </a>
+                    </div>
+                    <div class="reveal" style="animation-delay: 0.1s;">
+                        <div class="space-y-5">
+                            <a href="mailto:idris21saheed@gmail.com" class="flex items-start gap-4 group">
+                                <div class="w-10 h-10 rounded-lg bg-surface-800 border border-surface-700 flex items-center justify-center flex-shrink-0 group-hover:border-accent-500/50 transition-colors"><i data-lucide="mail" class="w-5 h-5 text-accent-500"></i></div>
+                                <div><p class="font-heading text-xs font-medium text-zinc-500 uppercase tracking-wider mb-0.5">Email</p><p class="font-body text-zinc-200 group-hover:text-accent-400 transition-colors">idris21saheed@gmail.com</p></div>
+                            </a>
+                            <a href="tel:+4407481968146" class="flex items-start gap-4 group">
+                                <div class="w-10 h-10 rounded-lg bg-surface-800 border border-surface-700 flex items-center justify-center flex-shrink-0 group-hover:border-accent-500/50 transition-colors"><i data-lucide="phone" class="w-5 h-5 text-accent-500"></i></div>
+                                <div><p class="font-heading text-xs font-medium text-zinc-500 uppercase tracking-wider mb-0.5">Phone</p><p class="font-body text-zinc-200 group-hover:text-accent-400 transition-colors">07481 968 146</p></div>
+                            </a>
+                            <a href="https://www.linkedin.com/in/idris-saheed/" target="_blank" rel="noopener noreferrer" class="flex items-start gap-4 group">
+                                <div class="w-10 h-10 rounded-lg bg-surface-800 border border-surface-700 flex items-center justify-center flex-shrink-0 group-hover:border-accent-500/50 transition-colors"><i data-lucide="linkedin" class="w-5 h-5 text-accent-500"></i></div>
+                                <div><p class="font-heading text-xs font-medium text-zinc-500 uppercase tracking-wider mb-0.5">LinkedIn</p><p class="font-body text-zinc-200 group-hover:text-accent-400 transition-colors">linkedin.com/in/idris-saheed</p></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        lucide.createIcons();
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabPanels  = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetTab = btn.getAttribute('data-tab');
+                tabButtons.forEach(b => {
+                    b.classList.remove('active', 'text-accent-500');
+                    b.classList.add('text-zinc-500');
+                });
+                tabPanels.forEach(p => p.classList.remove('active'));
+                btn.classList.add('active', 'text-accent-500');
+                btn.classList.remove('text-zinc-500');
+                document.getElementById('panel-' + targetTab).classList.add('active');
+            });
+        });
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu    = document.getElementById('mobile-menu');
+        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+        });
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        document.querySelectorAll('.img-placeholder img').forEach(img => {
+            if (img.src && img.src !== window.location.href && img.src !== '') {
+                img.classList.remove('hidden');
+                const placeholder = img.nextElementSibling || img.parentElement.querySelector('[class*="-placeholder"]');
+                if (placeholder && placeholder !== img) placeholder.style.display = 'none';
+            }
+            img.addEventListener('load', function() {
+                this.classList.remove('hidden');
+                const placeholder = this.parentElement.querySelector('[class*="-placeholder"]:not(img)');
+                if (placeholder) placeholder.style.display = 'none';
+            });
+            img.addEventListener('error', function() { this.classList.add('hidden'); });
+        });
+    </script>
+</body>
+</html>
